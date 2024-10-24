@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Team } from '../models/team.model';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +9,7 @@ import { Observable } from 'rxjs';
 export class ApiService {
 
   private _http = inject(HttpClient);
-  private urlBase: string = '/';
+  private urlBase: string = '/api/';
 
 
   // ? Example Team {"name": "Imperial Crew"}
@@ -27,6 +28,12 @@ export class ApiService {
     ]
   */
   getTeamsViews(teams:any):Observable<any> {
-    return this._http.post<any>(`${this.urlBase}/teams-views/`, teams);
+    return this._http.post<any>(`${this.urlBase}teams-views/`, teams);
+  }
+
+  // TODO implements getTeamsPerEdition for future tournaments
+  getFirstEditionTeams():Observable<Team[]> {
+    console.warn(`${this.urlBase}first-edition-teams/`)
+    return this._http.get<Team[]>(`${this.urlBase}first-edition-teams/`)
   }
 }
